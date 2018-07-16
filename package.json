@@ -1,0 +1,19 @@
+{
+  "name": "koa_boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./app.js"
+  },
+  "author": "watcher",
+  "license": "ISC",
+  "dependencies": {
+    "jade": "^1.11.0",
+    "koa": "^2.5.2",
+    "koa-router": "^7.4.0",
+    "koa-views": "^6.1.4",
+    "mongoose": "^5.2.3"
+  }
+}
