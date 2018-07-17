@@ -19,7 +19,7 @@ router.get('/', koaI18next(i18next, {
         ...defaultState,
         tasks,
         __: ctx.t,
-        nextLng: ctx.lng === 'en' ? 'ru' : 'en'
+        nextLng: ctx.lng.includes('en') ? 'ru' : 'en'
     }
 
     await ctx.render('index', {})
