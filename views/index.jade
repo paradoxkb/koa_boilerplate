@@ -2,21 +2,25 @@ extends layout
 
 block content
     div(class=['container', 'justify-content-center'])
-        h1= 'TODO Boilerplate'
-        p JADE Welcome to #{title}
+        h1= __('TODO Boilerplate')
+        p JADE > #{__('Tasks list')}
 
-        .new-task
-            input#add_new_task.btn.btn-primary(type='button', value='Add new task')
-            form#new_task_form.ml-3.hidden(name='newTaskForm')
-                input#new_task_text.form-group.mr-3(type='text', name='newtask')
-                input(type='submit', formaction='/task', formmethod='post', value='Save')
+        .row
+            .col-md-11.new-task
+                input#add_new_task.btn.btn-primary(type='button', value=__('Add new task'))
+                form#new_task_form.ml-3.hidden(name='newTaskForm')
+                    input#new_task_text.form-group.mr-3(type='text', name='newtask')
+                    input(type='submit', formaction='/task', formmethod='post', value=__('Save'))
+            .col-md-1.switch-lang.text-right
+                a(href='/?lng=#{nextLng}') #{nextLng}
+
 
         table.tasks-grid.table-stripped.table-bordered.table-hover.mt-3
             thead
                 tr
-                    th Name
-                    th Date
-                    th Action
+                    th #{__('Name')}
+                    th #{__('Date')}
+                    th #{__('Action')}
             tbody
                 each val in tasks
                     tr

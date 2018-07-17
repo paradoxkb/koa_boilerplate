@@ -18,3 +18,7 @@
 .new-task #new_task_form.hidden {
     display: none;
 }
+
+.switch-lang a {
+    font-size: 30px;
+}

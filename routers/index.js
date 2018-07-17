@@ -3,37 +3,24 @@
  */
 const router = require('koa-router')()
 const koaBody = require('koa-body')
+const i18next = require('i18next');
+const koaI18next = require('koa-i18next');
 const { create, list, removeTask } = require('../models/Task')
 
-const tasks = [
-    {
-        title: 'Task 1',
-        createdAt: new Date()
-    },
-    {
-        title: 'Task 2',
-        createdAt: new Date()
-    },
-    {
-        title: 'Task 3',
-        createdAt: new Date()
-    },
-    {
-        title: 'Task 4',
-        createdAt: new Date()
-    },
-    {
-        title: 'Task 5',
-        createdAt: new Date()
-    }
-]
+const defaultState = { title: 'TODO Boilerplate', tasks: [], lng: 'en' }
 
-const defaultState = { title: 'TODO Boilerplate', tasks }
-
-router.get('/', async(ctx, next) => {
+router.get('/', koaI18next(i18next, {
+    lookupQuerystring: 'lng',
+    next: true
+}), async(ctx, next) => {
     const tasks = await list()
 
-    ctx.state = { ...defaultState, tasks }
+    ctx.state = {
+        ...defaultState,
+        tasks,
+        __: ctx.t,
+        nextLng: ctx.lng === 'en' ? 'ru' : 'en'
+    }
 
     await ctx.render('index', {})
 })
@@ -42,8 +29,6 @@ router.post('/task', koaBody(), async(ctx, next) => {
     const { newtask } = ctx.request.body
 
     const created = await create({ title: newtask })
-    console.log('> ', created)
-    // ctx.state = defaultState
     ctx.redirect('/')
 })
 
